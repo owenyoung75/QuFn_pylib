@@ -45,8 +45,8 @@ class StockData(DataChain):
             self.adjust.append(indx.adjust)
             self.volume.append(indx.volume)
                         
-        self.LowestRecord = {self.dates[self.low.index(min(self.low))]: min(self.low)}
-        self.HighestRecord= {self.dates[self.high.index(max(self.high))]: max(self.high)}
+        self.LowestRecord = {self.time[self.low.index(min(self.low))]: min(self.low)}
+        self.HighestRecord= {self.time[self.high.index(max(self.high))]: max(self.high)}
 
 
 

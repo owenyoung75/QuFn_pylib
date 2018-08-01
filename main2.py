@@ -6,6 +6,7 @@ from lib_Stock.PlotStock import *
 
 if __name__ == '__main__':
     Stockdata = read_Stockdata('INTC.csv')
+    print(Stockdata)
     
     dts = np.asarray(range(10)) + 1
     dts = [1,2,3,4,5,6,7,8,9,10]

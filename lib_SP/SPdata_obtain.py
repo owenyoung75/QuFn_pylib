@@ -20,8 +20,8 @@ from datetime import date
 from selenium import webdriver
 
 
-from SPindex import SPindx
-from SPindex import SPIndxData
+from .SPindex import SPindx
+from .SPindex import SPIndxData
 
 
 def read_SPdata0(FilePath):
@@ -74,8 +74,8 @@ def download_SPdata():
     end_date   = '12/31/' + str(current_year - 1)
     text_area_from  = driver.find_element_by_id('selectDateFrom')
     text_area_to    = driver.find_element_by_id('selectDateTo')
-    text_area_from.clear(); text_area_from.send_keys(start_date)
-    text_area_to.clear();   text_area_to.send_keys(end_date)
+    text_area_from.clear(); time.sleep(1);  text_area_from.send_keys(start_date)
+    text_area_to.clear();   time.sleep(1);  text_area_to.send_keys(end_date)
 
     # click download button
     dl_button = driver.find_element_by_id('dl_spreadsheet')
@@ -106,7 +106,7 @@ def download_SPdata():
     time.sleep(3)
     driver.quit()
 
-    filepath = '/Users/yangtong/Documents/study/Econ/econphys/HistoricalPrices_' + str(date.today()) + '.csv'
+    filepath = '/Users/yangtong/Documents/work_econ/QuFn_pylib/HistoricalPrices_' + str(date.today()) + '.csv'
     shutil.move('/Users/yangtong/Downloads/HistoricalPrices.csv',filepath)
     #filepath = '/Users/yangtong/Documents/study/Econ/econphys/GSPC_' + str(date.today()) + '.csv'
     #shutil.move('/Users/yangtong/Downloads/^GSPC.csv',filepath)

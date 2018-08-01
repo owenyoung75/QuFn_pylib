@@ -105,7 +105,7 @@ class DataChain:
         for key, value in kwargs.items():
             if key == 'interval':
                 interval = value
-        for i in range(len(self.close)/interval-1):
+        for i in range(int(len(self.close)/interval)-1):
             returns.append( np.log(self.close[(i+1)*interval]/self.close[i*interval]) )
         return returns
 

@@ -8,12 +8,11 @@ from lib_Stock.Stockdata_obtain import *
 from lib_Stock.PlotStock import *
 
 if __name__ == '__main__':
-    SPdata = read_SPdata('GSPCs.csv')
+    SPdata = read_SPdata('GSPC_new.csv')
 
     PlotSPIndx(SPdata, 'close')
     PlotSPReturn(SPdata, 'compare')
     PlotSPVolatility(SPdata, 21, 20, 'compare')
-    sim_return = PlotSimReturn(SPdata, np.random.normal, 'overlap')
     PlotReturnEDF(SPdata, 'log')
     
 
@@ -23,7 +22,7 @@ if __name__ == '__main__':
     #PlotSimReturn(SPdata, np.random.normal, 'overlap', 'save')
     #PlotReturnEDF(SPdata, 'compare', 'save')
    
-   
+    sim_return = PlotSimReturn(SPdata, np.random.normal, 'overlap')
     Yt = np.add.accumulate(sim_return)
     plt.figure()
     plt.plot(Yt)

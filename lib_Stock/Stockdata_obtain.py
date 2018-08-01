@@ -18,8 +18,8 @@ import time
 import shutil
 
 
-from Stock import Stock
-from Stock import StockData
+from .Stock import Stock
+from .Stock import StockData
 
 
 def read_Stockdata(FilePath):

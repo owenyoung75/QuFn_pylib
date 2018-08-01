@@ -7,7 +7,7 @@ from datetime import date
 from selenium import webdriver
 
 
-from market_records import *
+from .market_records import *
 
 
 def read_SingleHF(FilePath):

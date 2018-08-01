@@ -12,7 +12,7 @@ def Corr(_dataX, _dataY):
     return np.dot((_dataX - meanX)/devX,(_dataY-meanY)/devY) / len(_dataX)
 
 
-def AutoCorr(_data, _interval):
+def AutoCorr(_data, _interval=1):
     length = len(_data)
     X = _data[0:(length-_interval)]
     Y = _data[_interval:]

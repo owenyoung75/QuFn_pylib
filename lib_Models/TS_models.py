@@ -2,7 +2,7 @@ import numpy as np
 import collections
 from random import *
 
-from basic_funcs import *
+from .basic_funcs import *
 
 
 class Model_AR:

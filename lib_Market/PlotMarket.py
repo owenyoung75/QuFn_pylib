@@ -61,7 +61,7 @@ from scipy import stats
 from scipy.interpolate import spline
 
 
-from market_records import *
+from .market_records import *
 
 
 #### Note: This format now only works for daily data plotting because of x-labels
@@ -123,7 +123,7 @@ def CompareValue(_data, _axes, *args):
         elif arg == 'high':
             plt.plot(_data.high)
 
-    coordinates = PlotFormat(_data.LowestRecord.values()[0], _data.HighestRecord.values()[0], _data.time, _axes)
+    coordinates = PlotFormat(list(_data.LowestRecord.values())[0], list(_data.HighestRecord.values())[0], _data.time, _axes)
     plt.ylabel(r'Market Value', {'color': 'b', 'fontsize': 15})
     return coordinates
 
@@ -251,7 +251,7 @@ def PlotSingleReturnEDF(_data, intv, *args):
             log = True
 
     returns = _data.LogReturns(interval = intv)
-    count, bins = np.histogram(returns,  len(returns)/20, normed=True)
+    count, bins = np.histogram(returns,  int(len(returns)/20), normed=True)
     cnter = []; hist = {}
     for i in range(len(bins)-1):
         cnter.append( (bins[i] + bins[i+1])/2.0 )
@@ -265,7 +265,7 @@ def PlotSingleReturnEDF(_data, intv, *args):
         plt.xlabel(r'Log(returns)', {'color': 'b', 'fontsize': 15})
         plt.ylabel('Log(empirical PDF)', {'color': 'b', 'fontsize': 15})
     else:
-        plt.hist(returns, len(returns)/15, normed=True)
+        plt.hist(returns, int(len(returns)/15), normed=True)
         #plt.plot(cnter, count.tolist())
         plt.xlabel(r'Returns', {'color': 'b', 'fontsize': 15})
         plt.ylabel('Empirical PDF', {'color': 'b', 'fontsize': 15})
