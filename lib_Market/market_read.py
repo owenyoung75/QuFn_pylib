@@ -1,11 +1,12 @@
 import time
 import random
 import csv
-import time
 import shutil
+import pandas as pd
+
 from datetime import date
 from selenium import webdriver
-
+from pandas import read_csv
 
 from .market_records import *
 

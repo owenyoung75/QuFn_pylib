@@ -1,10 +1,10 @@
 """
-objects: market_value
-    :attribute  time:   string object; time of record
-    :attribute  low:    float object; lowest value within a day
-    :attribute  high:   float object; highest value within a day
-    :attribute  open:   float object; open value of a day
-    :attribute  close:  float object; close value of a day
+objects: market_recd
+    :attribute  time:   string object;  time of record
+    :attribute  low:    float object;   lowest value within a day
+    :attribute  high:   float object;   highest value within a day
+    :attribute  open:   float object;   open value of a day
+    :attribute  close:  float object;   close value of a day
     """
 
 """
@@ -33,12 +33,15 @@ objects: DataChain
     
 """
 
-
+import sys
 import numpy as np
 import collections
 
+from datetime import datetime
+from pandas import DataFrame
 
-class market_value:
+
+class market_recd:
     def __init__(self, time, open, high, low, close):
         self.time = str(time)
         self.low = float(low)
@@ -46,53 +49,55 @@ class market_value:
         self.open = float(open)
         self.close = float(close)
 
+
+
 class DataChain:
-    def __init__(self, indxChain):
-        self.data = indxChain
+    def __init__(self, recdChain):
+        self.data = recdChain
         
-        self.StartTime = indxChain[0].time
-        self.EndTime = indxChain[-1].time
+        self.StartTime = recdChain[0].time
+        self.EndTime = recdChain[-1].time
         
         self.time = []; self.open = []; self.close = []; self.low = []; self.high = []
-        for indx in indxChain:
-            self.time.append(indx.time)
-            self.open.append(indx.open)
-            self.close.append(indx.close)
-            self.low.append(indx.low)
-            self.high.append(indx.high)
+        for recd in recdChain:
+            self.time.append(recd.time)
+            self.open.append(recd.open)
+            self.close.append(recd.close)
+            self.low.append(recd.low)
+            self.high.append(recd.high)
         
         self.LowestRecord = {self.time[self.low.index(min(self.low))]: min(self.low)}
         self.HighestRecord= {self.time[self.high.index(max(self.high))]: max(self.high)}
             
 
-####  Note: Current version only works for daily data
-    def __add__(self, other):
-        date_af = Date_to_Integer(self.firstDay); date_al = Date_to_Integer(self.lastDay)
-        date_bf = Date_to_Integer(other.firstDay); date_bl = Date_to_Integer(other.lastDay)
-        if (date_al < date_bf ):
-            return(SPIndxData(self.data + other.data))
-        elif  (date_af > date_bl ):
-            return(SPIndxData(other.data + self.data))
-        else:
-            print("Error: Time range duplicated! Shouldn not merge.")
-            return None
-
-    def __radd__(self, other):
-        if other == 0:
-            return self
-        else:
-            return self.__add__(other)
-
-    def truncate(self, time1, time2):
-        if (type(time1) == type(0) and type(time2) == type(0)):     # Input as index
-            if time2 > len(self.data):
-                print("Error: Truncation out of range!")
-                return None
-            else:
-                idx_start = time1;  idx_end = time2
-        else:                                                       # Input as 'mm/dd/yy'
-            idx_start = self.time.index(time1);    idx_end = self.time.index(time2) + 1
-        return DataChain(self.data[idx_start : idx_end])
+#####  Note: Current version only works for daily data
+#    def __add__(self, other):
+#        date_af = Date_to_Integer(self.firstDay); date_al = Date_to_Integer(self.lastDay)
+#        date_bf = Date_to_Integer(other.firstDay); date_bl = Date_to_Integer(other.lastDay)
+#        if (date_al < date_bf ):
+#            return(SPIndxData(self.data + other.data))
+#        elif  (date_af > date_bl ):
+#            return(SPIndxData(other.data + self.data))
+#        else:
+#            print("Error: Time range duplicated! Shouldn not merge.")
+#            return None
+#
+#    def __radd__(self, other):
+#        if other == 0:
+#            return self
+#        else:
+#            return self.__add__(other)
+#
+#    def truncate(self, time1, time2):
+#        if (type(time1) == type(0) and type(time2) == type(0)):     # Input as index
+#            if time2 > len(self.data):
+#                print("Error: Truncation out of range!")
+#                return None
+#            else:
+#                idx_start = time1;  idx_end = time2
+#        else:                                                       # Input as 'mm/dd/yy'
+#            idx_start = self.time.index(time1);    idx_end = self.time.index(time2) + 1
+#        return DataChain(self.data[idx_start : idx_end])
 
 
     def Returns(self):
@@ -142,15 +147,15 @@ class DataChain:
 
 
 
-class HF_value(market_value):
+class HF_value(market_recd):
     def __init__(self, time, buy, sell):
-        market_value.__init__(self, time, buy, buy, sell, sell)
+        super().__init__(time, buy, buy, sell, sell)
         self.buy = float(buy)
         self.sell = float(sell)
 
 class HF_Data(DataChain):
     def __init__(self, valuechain, name):
-        DataChain.__init__(self, valuechain)
+        super().__init__(valuechain)
         self.name = name
         self.buys = self.open
         self.sells = self.close

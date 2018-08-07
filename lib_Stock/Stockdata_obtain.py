@@ -14,12 +14,12 @@ function:   download_SPdata
 import time
 import random
 import csv
-import time
 import shutil
+import pandas as pd
+from pandas import read_csv
 
-
-from .Stock import Stock
-from .Stock import StockData
+from .StockRec import StockRecd
+from .StockRec import StockData
 
 
 def read_Stockdata(FilePath):
@@ -31,7 +31,7 @@ def read_Stockdata(FilePath):
             fileReader = csv.reader(file)
             dumb = next(fileReader)
             for line in fileReader:
-                indx = Stock(line[0], line[1], line[2], line[3], line[4], line[5], line[6])
+                indx = StockRecd(line[0], line[1], line[2], line[3], line[4], line[5], line[6])
                 indxChain.append(indx)
         #   for file format from Wall Street Journal
         #indxChain.reverse()

@@ -2,34 +2,33 @@
 import matplotlib; matplotlib.rc('text', usetex=True)
 import matplotlib.pyplot as plt
 
-from lib_Market.PlotMarket import *
+from lib_Market.PlotMarketRec import *
 
 
 
-def PlotStockPrice(_data, *args):
+def PlotSPIndx(_data, *args):
     fig = PlotValue(_data, *args)
-    filename = _data.name + '_Price.png'
+    filename = 'SP_indx.png'
     save_figure(fig, filename, *args)
     return None
 
 
 
-def PlotStockReturn(_data, *args):
+def PlotSPReturn(_data, *args):
     fig = PlotReturn(_data, *args)
-    labely = 'Stock ' + _data.name + ' return'
-    plt.ylabel(labely, {'color': 'b', 'fontsize': 15})
-    
-    filename = _data.name + '_returns.png'
+    plt.ylabel(r'S\&P 500 returns', {'color': 'b', 'fontsize': 15})
+
+    filename = 'SP_returns.png'
     save_figure(fig, filename, *args)
     return None
 
 
 
-def PlotStockVolatility(_data, _interval, _overlap, *args):
+def PlotSPVolatility(_data, _interval, _overlap, *args):
     fig = PlotVolatility(_data, _interval, _overlap, *args)
-    plt.ylabel(r'Stock volatility', {'color': 'b', 'fontsize': 15})
-    
-    filename = _data.name + '_volatility.png'
+    plt.ylabel(r'S\&P 500 volatility', {'color': 'b', 'fontsize': 15})
+
+    filename = 'SP_volatility.png'
     save_figure(fig, filename, *args)
     return None
 

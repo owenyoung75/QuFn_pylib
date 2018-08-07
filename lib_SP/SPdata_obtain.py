@@ -14,42 +14,44 @@ function:   download_SPdata
 import time
 import random
 import csv
-import time
 import shutil
+import pandas as pd
+
 from datetime import date
 from selenium import webdriver
+from pandas import read_csv
 
 
-from .SPindex import SPindx
-from .SPindex import SPIndxData
+from .SPindexRec import SPIndxRecd
+from .SPindexRec import SPIndxData
 
 
-def read_SPdata0(FilePath):
-    indxChain = []
-    print('\n')
-    with open(FilePath, 'r') as file:
-        fileReader = csv.reader(file)
-        dumb = next(fileReader)
-        for line in fileReader:
-            indx = SPindx(line[0], line[1], line[2], line[3], line[4])
-            indxChain.append(indx)
-    print("Pulling S&P index from csv...")
-    return SPIndxData(indxChain)
+#def read_SPdata0(FilePath):
+#    indxChain = []
+#    print('\n')
+#    with open(FilePath, 'r') as file:
+#        fileReader = csv.reader(file)
+#        dumb = next(fileReader)
+#        for line in fileReader:
+#            indx = SPIndxRecd(line[0], line[1], line[2], line[3], line[4])
+#            indxChain.append(indx)
+#    print("Pulling S&P index from csv...")
+#    return SPIndxData(indxChain)
 
 
 def read_SPdata(FilePath):
-    indxChain = []
     print('\n')
     try:
         with open(FilePath, 'r') as file:
             fileReader = csv.reader(file)
             dumb = next(fileReader)
+            indxChain = []
             for line in fileReader:
-                indx = SPindx(line[0], line[1], line[2], line[3], line[4])
-                #   for file format from Wall Street Journal
-                #indxChain.insert(0,indx)
-                #   for file format from Yahoo Finance
-                indxChain.append(indx)
+                indx = SPIndxRecd(line[0], line[1], line[2], line[3], line[4])
+                ###   for file format from Wall Street Journal
+                indxChain.insert(0,indx)
+                ###   for file format from Yahoo Finance
+                #indxChain.append(indx)
         print("Pulling S&P index from csv...")
         return SPIndxData(indxChain)
     except:
@@ -108,7 +110,7 @@ def download_SPdata():
 
     filepath = '/Users/yangtong/Documents/work_econ/QuFn_pylib/HistoricalPrices_' + str(date.today()) + '.csv'
     shutil.move('/Users/yangtong/Downloads/HistoricalPrices.csv',filepath)
-    #filepath = '/Users/yangtong/Documents/study/Econ/econphys/GSPC_' + str(date.today()) + '.csv'
+    #filepath = '/Users/yangtong/Documents/work_econ/QuFn_pylib/GSPC_' + str(date.today()) + '.csv'
     #shutil.move('/Users/yangtong/Downloads/^GSPC.csv',filepath)
     return filepath
 

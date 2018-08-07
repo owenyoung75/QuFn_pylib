@@ -1,11 +1,11 @@
 """
-objects: SPindx         A type of market index
+objects: Stock         A type of market index
     :attribute  adjust:     float object; adjusted close price
     :attribute  volume:     integer object; number of shares
 """
 
 """
-objects: SPIndxData     A type of data chain
+objects: StockData     A type of data chain
     :attribute  adjust:     float list; adjusted close prices list
     :attribute  volume:     integer list; share numbers list
 
@@ -18,9 +18,9 @@ import collections
 from lib_Market.market_records import *
 
 
-class Stock(market_value):
+class StockRecd(market_recd):
     def __init__(self, time, open, high, low, close, adjust, volume):
-        market_value.__init__(self, time, open, high, low, close)
+        super().__init__(time, open, high, low, close)
         self.adjust = adjust
         self.volume = volume
 

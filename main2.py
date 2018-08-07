@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from lib_Stock.Stockdata_obtain import *
-from lib_Stock.PlotStock import *
+from lib_Stock.PlotStockRec import *
 
 if __name__ == '__main__':
     Stockdata = read_Stockdata('INTC.csv')

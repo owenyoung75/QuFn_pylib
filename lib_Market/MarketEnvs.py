@@ -1,16 +1,19 @@
 from datetime import datetime
 
+from .market_records import *
+
+
 class Market:
     """
         Class:  general financial market
         
-        attribute:  UpdatedDate date of market info collected   datetime
+        attribute:  UpdatedDate     date of market info collected   datetime
         """
     def __init__(self,
                  _date
                  ):
         if _date == None:
-            print("No date specified. Default return: today's price.")
+            print("No date specified. Default return: today's market.")
             self.UpdatedDate = datetime.today()
         elif type(_date) == type(datetime.today()):
             self.UpdatedDate = _date
@@ -18,6 +21,12 @@ class Market:
             print("Transform date-string into datetime structure.")
             print("Note: date format should be mm/dd/yy.")
             self.UpdatedDate = datetime.strptime(_date, '%m/%d/%Y')
+        self.Records = []
+
+    def store(self,
+              market_recd
+              ):
+        self.Records.append(market_recd)
 
 
 
