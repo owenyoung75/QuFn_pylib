@@ -1,0 +1,9 @@
+*.csv
+*.pyc
+*.pyc
+
+lib_SP/__pycache__/*
+lib_Asset/__pycache__/*
+lib_Stock/__pycache__/*
+lib_Models/__pycache__/*
+lib_Market/__pycache__/*
