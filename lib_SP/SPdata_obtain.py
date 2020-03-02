@@ -2,12 +2,12 @@
 function:   read_SPdata
     return:     a SPIndxData object from certain file
     arg:        FilePath; path to the file, if file exist, directly read data, if no file, download from external website
-    
-    
+
+
 function:   download_SPdata
     return:     a string refering to the file-path of downloaded data
     default:    website: Wall Street Journal;   data: from 2000/01/03 to the end of last year
-    
+
 """
 
 
@@ -65,10 +65,9 @@ def read_SPdata(FilePath):
 
 def download_SPdata():
     driver = webdriver.Chrome()
-    
-    #   From Wall Street Journal
-    driver.get('http://quotes.wsj.com/index/SPX/historical-prices')
 
+    # #  From Wall Street Journal
+    driver.get('http://quotes.wsj.com/index/SPX/historical-prices')
     # input dates
     # download data of last three years
     current_year = date.today().year
@@ -78,20 +77,18 @@ def download_SPdata():
     text_area_to    = driver.find_element_by_id('selectDateTo')
     text_area_from.clear(); time.sleep(1);  text_area_from.send_keys(start_date)
     text_area_to.clear();   time.sleep(1);  text_area_to.send_keys(end_date)
-
     # click download button
     dl_button = driver.find_element_by_id('dl_spreadsheet')
     time.sleep(1)
     dl_button.click()
-    
-    
-    #   From Yahoo Finance
+
+
+    # # #  From Yahoo Finance
     #driver.get('https://finance.yahoo.com/quote/%5EGSPC/')
     #history_button = driver.find_element_by_xpath("//*[@id='quote-nav']/ul/li[6]/a")
     #history_button.click()
-    
-    # input dates
-    # download data of all past years since 1950
+    # # input dates
+    # # download data of all past years since 1950
     #current_year = date.today().year
     #start_date = '01/03/1950' ;
     #end_date   = '12/31/' + str(current_year - 1)
@@ -99,12 +96,11 @@ def download_SPdata():
     #text_area_to    = driver.find_element_by_xpath("//*[@id='Col1-1-HistoricalDataTable-Proxy']/section/div[1]/div[1]/div[1]/span[2]/div/input[2]")
     #text_area_from.clear(); text_area_from.send_keys(start_date)
     #text_area_to.clear();   text_area_to.send_keys(end_date)
-    
-    # click download button
+    # # click download button
     #dl_button = driver.find_element_by_xpath("//*[@id='Col1-1-HistoricalDataTable-Proxy']/section/div[1]/div[2]/span[2]/a/span")
     #dl_button.click()
-    
-    
+
+
     time.sleep(3)
     driver.quit()
 
@@ -113,7 +109,3 @@ def download_SPdata():
     #filepath = '/Users/yangtong/Documents/work_econ/QuFn_pylib/GSPC_' + str(date.today()) + '.csv'
     #shutil.move('/Users/yangtong/Downloads/^GSPC.csv',filepath)
     return filepath
-
-
-
-
